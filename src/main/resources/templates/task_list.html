@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h2>Task List</h2>
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <!-- <th>ID</th> -->
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="task : ${tasks}">
+                    <!-- <td th:text="${task.id}"></td> -->
+                    <td th:text="${task.title}"></td>
+                    <td th:text="${task.description}"></td>
+                    <td>
+                        <span th:text="${task.completed ? 'Completed' : 'Pending'}"
+                              th:classappend="${task.completed ? 'status-completed' : 'status-pending'}">
+                        </span>
+                    </td>
+                    <td>
+                        <a class="btn edit-btn" th:href="@{'/tasks/edit/' + ${task.id}}">Edit</a>
+                        <a class="btn delete-btn" th:href="@{'/tasks/delete/' + ${task.id}}" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="actions">
+            <a class="btn add-btn" href="/tasks/create">Create New Task</a>
+        </div>
+    </div>
+</body>
+</html>
